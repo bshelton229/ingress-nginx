@@ -120,6 +120,7 @@ var (
 			}
 			return true
 		},
+		"escapeLocationPathVar":      escapeLocationPathVar,
 		"shouldConfigureLuaRestyWAF": shouldConfigureLuaRestyWAF,
 		"buildLuaSharedDictionaries": buildLuaSharedDictionaries,
 		"buildLocation":              buildLocation,
@@ -160,6 +161,14 @@ var (
 		"stripLocationModifer":        stripLocationModifer,
 	}
 )
+
+func escapeLocationPathVar(input interface{}) string {
+	inputStr, ok := input.(string)
+	if !ok {
+		return ""
+	}
+	return strings.Replace(inputStr, `$`, `%24`, -1)
+}
 
 // formatIP will wrap IPv6 addresses in [] and return IPv4 addresses
 // without modification. If the input cannot be parsed as an IP address

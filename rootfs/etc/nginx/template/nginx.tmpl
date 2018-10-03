@@ -970,7 +970,7 @@ stream {
             set $ingress_name   "{{ $ing.Rule }}";
             set $service_name   "{{ $ing.Service }}";
             set $service_port   "{{ $location.Port }}";
-            set $location_path  "{{ $location.Path }}";
+            set $location_path  "{{ $location.Path | escapeLocationPathVar }}";
 
             {{ if $all.Cfg.EnableOpentracing }}
             opentracing_propagate_context;
