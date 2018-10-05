@@ -162,12 +162,18 @@ var (
 	}
 )
 
+// escapeLocationPathVar will replace the $ character with ${literal_dollar}
+// which is made to work via the following configuration in the http section of
+// the template:
+// geo $literal_dollar {
+//     default "$";
+// }
 func escapeLocationPathVar(input interface{}) string {
 	inputStr, ok := input.(string)
 	if !ok {
 		return ""
 	}
-	return strings.Replace(inputStr, `$`, `%24`, -1)
+	return strings.Replace(inputStr, `$`, `${literal_dollar}`, -1)
 }
 
 // formatIP will wrap IPv6 addresses in [] and return IPv4 addresses
